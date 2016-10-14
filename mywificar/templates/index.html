@@ -30,12 +30,24 @@
 	                $('#log').append('<br>' + $('<div/>').text('Received #' + msg.count + ': ' + msg.data).html());
 	            });
 	
-                $('form#add').submit(function(event) {
-	                socket.emit('add_event');
+                $('form#front').submit(function(event) {
+	                socket.emit('front_event');
 	                return false;
 	            });
-                $('form#minus').submit(function(event) {
-	                socket.emit('minus_event');
+                $('form#left').submit(function(event) {
+	                socket.emit('left_event');
+	                return false;
+	            });
+	             $('form#back').submit(function(event) {
+	                socket.emit('back_event');
+	                return false;
+	            });
+	             $('form#right').submit(function(event) {
+	                socket.emit('right_event');
+	                return false;
+	            });
+	             $('form#reset').submit(function(event) {
+	                socket.emit('reset_event');
 	                return false;
 	            });
 	        });
@@ -49,7 +61,7 @@
       <br>
       
       
-      <form menthod="POST" action="#" id="add" class="text-center">
+      <form menthod="POST" action="#" id="front" class="text-center">
          <button type="submit" class="btn btn-primary btn-lg">
              <span class="glyphicon glyphicon-arrow-up"></span>
          </button>
@@ -59,21 +71,21 @@
       <table class="text-center">
       <tr>
       <td>		
-      <form  menthod="POST" action="#" id="0">
+      <form  menthod="POST" action="#" id="left">
          <button type="submit" class="btn btn-primary btn-lg">
              <span class="glyphicon glyphicon-arrow-left"></span>
          </button>
       </form>
       </td>
       <td>
-      <form menthod="POST" action="#" id="minus">
+      <form menthod="POST" action="#" id="back">
          <button type="submit" class="btn btn-primary btn-lg">
              <span class="glyphicon glyphicon-arrow-down"></span>
          </button>
       </form>
       </td>
       <td>
-      <form menthod="POST" action="#" id="1">
+      <form menthod="POST" action="#" id="right">
          <button type="submit" class="btn btn-primary btn-lg" id="">
               <span class="glyphicon glyphicon-arrow-right"></span>
          </button>
@@ -83,11 +95,12 @@
       </table>
       </center>
       
-      <form class="text-center" menthod="POST" action="#" id="">
-         <button type="button" class="btn btn-primary btn-lg">
+      <form menthod="POST" action="#" id="reset" class="text-center">
+         <button type="submit" class="btn btn-primary btn-lg">
              <span class="glyphicon glyphicon-minus-sign"></span>
          </button>
       </form>
+
       <div id="log" style="color:#0011FF">
         hihihihi
       </div>

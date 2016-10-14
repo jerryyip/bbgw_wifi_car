@@ -2,7 +2,7 @@
 
 
 import time
-from mywificar import goFront, goBack, stop
+from mywificar import goFront, goBack, stop, turnRight, turnLeft
 from flask import Flask, render_template, session, request
 from flask_socketio import SocketIO, emit, join_room, leave_room, \
     close_room, rooms, disconnect
@@ -42,20 +42,40 @@ def test_connect():
     emit('my_response', {'data': 'Connected', 'count': 0})
 
 
-@socketio.on('add_event', namespace='/test')
+@socketio.on('front_event', namespace='/test')
 def add_message():
     session['receive_count'] = session.get('receive_count', 0) + 1
-    print("get add")
+    print("go front")
     goFront()
-    emit('my response',{'data': "add" , 'count': session['receive_count']})
+    emit('my response',{'data': "go front" , 'count': session['receive_count']})
 
-@socketio.on('minus_event', namespace='/test')
-def minus_message():
+@socketio.on('left_event', namespace='/test')
+def left_message():
     session['receive_count'] = session.get('receive_count', 0) + 1
-    print("get minus")
-    stop()
-    emit('my response',{'data': "minus" , 'count': session['receive_count']})
+    print("turn left")
+    turnLeft()
+    emit('my response',{'data': "turn left" , 'count': session['receive_count']})
+    
+@socketio.on('back_event', namespace='/test')
+def back_message():
+    session['receive_count'] = session.get('receive_count', 0) + 1
+    print("go back")
+    goBack()
+    emit('my response',{'data': "go back" , 'count': session['receive_count']})
+    
+@socketio.on('right_event', namespace='/test')
+def right_message():
+    session['receive_count'] = session.get('receive_count', 0) + 1
+    print("turn right")
+    turnRight()
+    emit('my response',{'data': "turn right" , 'count': session['receive_count']})
 
-        
+@socketio.on('reset_event', namespace='/test')
+def stop_message():
+    session['receive_count'] = session.get('receive_count', 0) + 1
+    print("reset")
+    stop()
+    emit('my response',{'data': "reset" , 'count': session['receive_count']})
+    
 if __name__ == '__main__':
     socketio.run(app,host='0.0.0.0', debug=False)
