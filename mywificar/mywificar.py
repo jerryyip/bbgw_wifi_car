@@ -6,8 +6,8 @@ MotorLeft        = 1
 MotorRight       = 4
 ClockWise        = 1
 CounterClockWise = 2
-PwmDutyRight     = 20
-PwmDutyLeft      = 20
+PwmDutyRight     = 4
+PwmDutyLeft      = 4
 Frequency        = 500
 
 x=mraa.Gpio(69)
@@ -18,12 +18,19 @@ motor.DCMotorInit(MotorRight,Frequency)
 
 
 def goFront():
-    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
-    motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
+    time.sleep(0.1)
+    #motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
+   # motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
+   # motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
+   # motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
 
 def goBack():
-    motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft)
-    motor.DCMotorMove(MotorRight,CounterClockWise,PwmDutyRight)
+    time.sleep(0.1)
+   # motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft)
+  #  motor.DCMotorMove(MotorRight,CounterClockWise,PwmDutyRight)
+  #  motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft)
+ #   motor.DCMotorMove(MotorRight,CounterClockWise,PwmDutyRight)
+    
 
 def turnLeft():
     motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-30)
@@ -36,16 +43,28 @@ def turnRight():
 def stop():
 #    x.write(0)
 
-    motor.DCMotorStop(MotorLeft)    
-    motor.DCMotorStop(MotorRight)
+  #  motor.DCMotorStop(MotorLeft)    
+  #  motor.DCMotorStop(MotorRight)
     time.sleep(0.1)
-    motor.DCMotorStop(MotorLeft)    
-    motor.DCMotorStop(MotorRight)
+  #  motor.DCMotorStop(MotorLeft)    
+  #  motor.DCMotorStop(MotorRight)
 
 if __name__ == '__main__':
-    goFront()
-    time.sleep(2)
- #   goBack()
- #   time.sleep(2)
- #   stop()
+    i=0
+    while True:
+        try:
+            goFront()
+            print(i)
+            i=i+1
+            time.sleep(1)
+            goBack()
+            print(i)
+            i=i+1
+            time.sleep(1)
+            stop()
+            print(i)
+            i=i+1
+            time.sleep(1)
+        except Exception as err:
+            print err
  #   time.sleep(1) 
