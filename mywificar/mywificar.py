@@ -19,17 +19,17 @@ motor.DCMotorInit(MotorRight,Frequency)
 
 def goFront():
     time.sleep(0.1)
-    #motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
-   # motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
-   # motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
-   # motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
+    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
+    motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
+    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
+    motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
 
 def goBack():
     time.sleep(0.1)
-   # motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft)
-  #  motor.DCMotorMove(MotorRight,CounterClockWise,PwmDutyRight)
-  #  motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft)
- #   motor.DCMotorMove(MotorRight,CounterClockWise,PwmDutyRight)
+    motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft)
+    motor.DCMotorMove(MotorRight,CounterClockWise,PwmDutyRight)
+    motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft)
+    motor.DCMotorMove(MotorRight,CounterClockWise,PwmDutyRight)
     
 
 def turnLeft():
@@ -41,13 +41,10 @@ def turnRight():
     motor.DCMotorStop(MotorRight)
 
 def stop():
-#    x.write(0)
-
-  #  motor.DCMotorStop(MotorLeft)    
-  #  motor.DCMotorStop(MotorRight)
-    time.sleep(0.1)
-  #  motor.DCMotorStop(MotorLeft)    
-  #  motor.DCMotorStop(MotorRight)
+    motor.DCMotorStop(MotorLeft)    
+    motor.DCMotorStop(MotorRight)
+    motor.DCMotorStop(MotorLeft)    
+    motor.DCMotorStop(MotorRight)
 
 if __name__ == '__main__':
     i=0
