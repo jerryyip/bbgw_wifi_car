@@ -30,17 +30,12 @@
 # FileName : MotorBridge.py
 # by Jiankai.li
 
-#from Adafruit_I2C import Adafruit_I2C
-#import Adafruit_BBIO.GPIO as GPIO
+from Adafruit_I2C import Adafruit_I2C
+import Adafruit_BBIO.GPIO as GPIO
 import time
-import mraa 
-#Reset = "P9_23"
-#MotorBridge = Adafruit_I2C(0x4b)
-#GPIO.setup(Reset, GPIO.OUT)
-MotorBridge = mraa.I2c(1)
-MotorBridge.address(0x4b)
-Reset = mraa.Gpio(69)
-Reset.dir(mraa.DIR_OUT)
+Reset = "P9_23"
+MotorBridge = Adafruit_I2C(0x4b,busnum=2)
+GPIO.setup(Reset, GPIO.OUT)
 
 ReadMode  = 0
 WriteMode = 1
@@ -204,41 +199,33 @@ IO6_PPOD            = IO6_PUPD + 1
 PARAM_REG_NUM = IO6_PPOD + 1
 
 def WriteByte(Reg,Value):
-    #data = [0 for i in range(2)]
-    #data[0] = Reg
-    #data[1] = Value
-    data = (Value<<8)+Reg
-    MotorBridge.writeWordReg(WriteMode,data)
+    data = [0 for i in range(2)]
+    data[0] = Reg
+    data[1] = Value
+    MotorBridge.writeList(WriteMode,data)
 
 def WriteHalfWord(Reg,Value):
-    #data = [0 for i in range(3)]
-    #data[0] = Reg
-    #data[1] = Value & 0xff
-    #data[2] = (Value>>8) & 0xff
-    data1 = (Value<<8) & 0xff +Reg
-    data2 = (Value>>8) & 0xff
-    MotorBridge.writeWordReg(WriteMode,data1)
-    MotorBridge.writeWordReg(WriteMode,data2)
+    data = [0 for i in range(3)]
+    data[0] = Reg
+    data[1] = Value & 0xff
+    data[2] = (Value>>8) & 0xff
+    MotorBridge.writeList(WriteMode,data)
     
 def WriteOneWord(Reg,Value):
-    #data = [0 for i in range(5)]
-    #data[0] = Reg
-    #data[1] = Value & 0xff
-    #data[2] = (Value>>8) & 0xff
-    #data[3] = (Value>>16) & 0xff
-    #data[4] = (Value>>24) & 0xff
-    data1 = (Value<<8) & 0xff +Reg
-    data2 = (Value>>8) & 0xff
-    MotorBridge.writeWordReg(WriteMode,data1)
-    MotorBridge.writeWordReg(WriteMode,data2)
+    data = [0 for i in range(5)]
+    data[0] = Reg
+    data[1] = Value & 0xff
+    data[2] = (Value>>8) & 0xff
+    data[3] = (Value>>16) & 0xff
+    data[4] = (Value>>24) & 0xff
+    MotorBridge.writeList(WriteMode,data)
 
 def SetDefault():
     WriteOneWord(CONFIG_VALID,0x00000000)
 
 class MotorBridgeCape:
     def __init__(self):
-       #GPIO.output(Reset, GPIO.HIGH)
-        Reset.write(1)
+        GPIO.output(Reset, GPIO.HIGH)
         time.sleep(1)
         
     # init stepper motor A
