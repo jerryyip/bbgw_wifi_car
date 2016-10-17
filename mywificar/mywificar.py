@@ -6,8 +6,8 @@ MotorLeft        = 1
 MotorRight       = 4
 ClockWise        = 1
 CounterClockWise = 2
-PwmDutyRight     = 4
-PwmDutyLeft      = 4
+PwmDutyRight     = 20
+PwmDutyLeft      = 20
 Frequency        = 500
 
 x=mraa.Gpio(69)
@@ -53,11 +53,11 @@ if __name__ == '__main__':
             goFront()
             print(i)
             i=i+1
-            time.sleep(1)
+            time.sleep(2)
             goBack()
             print(i)
             i=i+1
-            time.sleep(1)
+            time.sleep(2)
             stop()
             print(i)
             i=i+1
