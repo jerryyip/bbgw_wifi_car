@@ -1,14 +1,15 @@
 import MotorBridge
 import time
 import mraa
+from mylinefinder import detectLine
 
 MotorLeft        = 1
 MotorRight       = 4
 ClockWise        = 1
 CounterClockWise = 2
-PwmDutyRight     = 20
-PwmDutyLeft      = 20
-Frequency        = 500
+PwmDutyRight     = 30
+PwmDutyLeft      = 30
+Frequency        = 700
 
 x=mraa.Gpio(69)
 x.dir(mraa.DIR_OUT)
@@ -21,47 +22,68 @@ def goFront():
     time.sleep(0.1)
     motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
     motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
-    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
-    motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
+
 
 def goBack():
     time.sleep(0.1)
     motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft)
     motor.DCMotorMove(MotorRight,CounterClockWise,PwmDutyRight)
-    motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft)
-    motor.DCMotorMove(MotorRight,CounterClockWise,PwmDutyRight)
     
 
 def turnLeft():
-    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-30)
-    motor.DCMotorStop(MotorLeft)
+    motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
+    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-5)
+    #motor.DCMotorStop(MotorLeft)
     
 def turnRight():
-    motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft-30)
-    motor.DCMotorStop(MotorRight)
+    #motor.DCMotorStop(MotorRight)
+    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
+    motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft-5)
 
 def stop():
     motor.DCMotorStop(MotorLeft)    
     motor.DCMotorStop(MotorRight)
-    motor.DCMotorStop(MotorLeft)    
-    motor.DCMotorStop(MotorRight)
+
+def spin():
+    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-20)
+    motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft-20)
+
+def patrol():
+    while True:
+        a=detectLine()
+        if a==3:
+            goFront()
+        if a==2:
+            turnRight()
+        if a==1:
+            turnLeft()
+        if a==0:
+            spin()
+
+    
 
 if __name__ == '__main__':
     i=0
+    while False:
+        goFront()
+        print(i)
+        i=i+1
+        time.sleep(2)
+        goBack()
+        print(i)
+        i=i+1
+        time.sleep(2)
+        stop()
+        print(i)
+        i=i+1
+        time.sleep(1)
+    while False:
+        goFront()
+        time.sleep(2)
+        turnLeft()
+        time.sleep(1)
     while True:
-        try:
-            goFront()
-            print(i)
-            i=i+1
-            time.sleep(2)
-            goBack()
-            print(i)
-            i=i+1
-            time.sleep(2)
-            stop()
-            print(i)
-            i=i+1
-            time.sleep(1)
-        except Exception as err:
-            print err
- #   time.sleep(1) 
+        stop()
+        time.sleep(100)
+
+

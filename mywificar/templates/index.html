@@ -21,10 +21,7 @@
 	            // event handler for server sent data
 	            socket.on('connect', function() {
                         socket.emit('my_event', {data: 'I\'m connected!'});
-
                 });
-        
-
                     // the data is displayed in the "Received" section of the page
 	            socket.on('my_response', function(msg) {
 	                $('#log').append('<br>' + $('<div/>').text('Received #' + msg.count + ': ' + msg.data).html());
@@ -50,43 +47,42 @@
 	                socket.emit('reset_event');
 	                return false;
 	            });
+            
 	        });
 	    </script>
 	</head>
-	<body style="background-image:url(/static/images/fall.jpg)">
-      <h1 class="text-center"><b>BBGW Wi-Fi CAR</b></h1>
-      <div>
-      <img src="/static/images/bbgw.jpg" class="img-responsive center-block">
-      </div>
+<!--	<body style="background-image:url(/static/images/bbgw.jpg)"> -->
+      <body>
+      <h1 class="text-center">BBGW Wi-Fi CAR</h1>
+
       <br>
-      
-      
       <form menthod="POST" action="#" id="front" class="text-center">
-         <button type="submit" class="btn btn-primary btn-lg">
+         <button type="submit" class="btn btn-success btn-lg">
              <span class="glyphicon glyphicon-arrow-up"></span>
          </button>
       </form>
+      <br>
       
       <center>
       <table class="text-center">
       <tr>
       <td>		
       <form  menthod="POST" action="#" id="left">
-         <button type="submit" class="btn btn-primary btn-lg">
+         <button type="submit" class="btn btn-success btn-lg">
              <span class="glyphicon glyphicon-arrow-left"></span>
-         </button>
+         </button>&nbsp;&nbsp;&nbsp;&nbsp;
       </form>
       </td>
       <td>
       <form menthod="POST" action="#" id="back">
-         <button type="submit" class="btn btn-primary btn-lg">
+         <button type="submit" class="btn btn-success btn-lg">
              <span class="glyphicon glyphicon-arrow-down"></span>
-         </button>
+         </button>&nbsp;&nbsp;&nbsp;&nbsp;
       </form>
       </td>
       <td>
       <form menthod="POST" action="#" id="right">
-         <button type="submit" class="btn btn-primary btn-lg" id="">
+         <button type="submit" class="btn btn-success btn-lg" id="">
               <span class="glyphicon glyphicon-arrow-right"></span>
          </button>
       </form>
@@ -94,15 +90,16 @@
       </tr>
       </table>
       </center>
+      <br>
       
       <form menthod="POST" action="#" id="reset" class="text-center">
-         <button type="submit" class="btn btn-primary btn-lg">
+         <button type="submit" class="btn btn-success btn-lg">
              <span class="glyphicon glyphicon-minus-sign"></span>
          </button>
       </form>
 
-      <div id="log" style="color:#0011FF">
-        hihihihi
+      <div>
+      <img src="/static/images/bbgw.jpg" class="img-responsive center-block">
       </div>
       </body>
 

@@ -1,17 +1,21 @@
 #!/usr/bin/env python
-
-
 import time
-from mywificar import goFront, goBack, stop, turnRight, turnLeft
+from mywificar import goFront, goBack, stop, turnRight, turnLeft, patrol
+from myswitch import isSwitchOn
+from myled import ChainableLED
 from flask import Flask, render_template, session, request
 from flask_socketio import SocketIO, emit, join_room, leave_room, \
     close_room, rooms, disconnect
+    
 async_mode = None
+
+rgb_led = ChainableLED("P9_27", "P9_25", 1)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode=async_mode)
 thread = None
+patrol_signal = False
 
 def background_thread(): 
      """Example of how to send server generated events to clients.""" 
@@ -22,7 +26,6 @@ def background_thread():
          socketio.emit('my_response', 
                        {'data': 'Server generated event', 'count': count}, 
                        namespace='/test') 
-
 
 @app.route('/')
 def index():
@@ -74,8 +77,22 @@ def right_message():
 def stop_message():
     session['receive_count'] = session.get('receive_count', 0) + 1
     print("reset")
+    patrol_signal = False
     stop()
     emit('my response',{'data': "reset" , 'count': session['receive_count']})
+
+@socketio.on('patrol_event', namespace='/test')
+def patrol_message():
+    session['receive_count'] = session.get('receive_count', 0) + 1
+    print("patrol")
+    patrol_signal = True
+
+    emit('my response',{'data': "patrol" , 'count': session['receive_count']})
     
 if __name__ == '__main__':
-    socketio.run(app,host='0.0.0.0', debug=False)
+    if(isSwitchOn() == 0):
+        rgb_led.setColorRGB(0, 255, 0, 0)
+        patrol()
+    if(isSwitchOn() == 1):
+        rgb_led.setColorRGB(0, 0, 255, 0)
+        socketio.run(app,host='0.0.0.0', debug=False)
