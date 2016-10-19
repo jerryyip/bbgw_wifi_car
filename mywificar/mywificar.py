@@ -45,20 +45,35 @@ def stop():
     motor.DCMotorStop(MotorRight)
 
 def spin():
-    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-20)
-    motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft-20)
+    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-1)
+    motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft-1)
 
 def patrol():
+    PwmDutyRight     = 5
+    PwmDutyLeft      = 5
     while True:
+#detectline() rr=4 rl=3 lr=2 ll=1 none=0
         a=detectLine()
-        if a==3:
-            goFront()
-        if a==2:
-            turnRight()
-        if a==1:
-            turnLeft()
-        if a==0:
+        if a==5:
             spin()
+        if a==4:
+            #turnRight
+            motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
+            motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft-2)
+        if a==3:
+            #turnRight()
+            motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
+            motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft-1)
+        if a==2:
+            #turnLeft()
+            motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
+            motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-1)
+        if a==1:
+            #turnLeft()
+            motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
+            motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-2)
+        if a==0:
+            goFront()
 
     
 

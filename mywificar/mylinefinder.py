@@ -1,27 +1,43 @@
 import mraa
 import time
 
-#gpio_30-mraa57 gpio_31-mraa_59
+#rr gpio14 mraa72
+#rl gpio15 mraa70
+#ll gpio31 mraa59
+#lr gpio30 mraa57
 
-left = mraa.Gpio(57)
-right = mraa.Gpio(59)
+lr = mraa.Gpio(57)
+ll = mraa.Gpio(59)
+rr = mraa.Gpio(72)
+rl = mraa.Gpio(70)
 
-left.dir(mraa.DIR_IN)
-right.dir(mraa.DIR_IN)
+ll.dir(mraa.DIR_IN)
+lr.dir(mraa.DIR_IN)
+rr.dir(mraa.DIR_IN)
+rl.dir(mraa.DIR_IN)
 
+#Output 1 when detect line
 def detectLine():
-    r=1-right.read()
-    l=1-left.read()
-    if (l and r):
-        return 3    #no line, gofront
-    if l:
-        return 2    #line on right, turn right
-    if r:
-        return 1    #line on left, turn left
+    _ll=ll.read()
+    _lr=lr.read()
+    _rl=rl.read()
+    _rr=rr.read()
+    if _ll and _lr and _rl and _rr:
+        return 5
+    if _lr and _rl:
+        return 0
+    if _ll==1:
+        return 1
+    if _lr==1:
+        return 2
+    if _rl==1:
+        return 3
+    if _rr==1:
+        return 4
     else:
-        return 0    #line on both, spin
-
+        return 0
+        
 if __name__ == "__main__":
-    
-    print(detectLine())
-    time.sleep(1)
+    while True:
+        detectLine()
+        time.sleep(.1)
