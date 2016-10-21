@@ -1,15 +1,15 @@
 import mraa
 import time
 
-#rr gpio14 mraa72
-#rl gpio15 mraa70
-#ll gpio31 mraa59
-#lr gpio30 mraa57
+#rr gpio14 mraa70
+#rl gpio15 mraa72
+#ll gpio31 mraa57
+#lr gpio30 mraa59
 
-lr = mraa.Gpio(57)
-ll = mraa.Gpio(59)
-rr = mraa.Gpio(72)
-rl = mraa.Gpio(70)
+lr = mraa.Gpio(59)
+ll = mraa.Gpio(57)
+rr = mraa.Gpio(70)
+rl = mraa.Gpio(72)
 
 ll.dir(mraa.DIR_IN)
 lr.dir(mraa.DIR_IN)

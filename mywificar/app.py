@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import time
-from mywificar import goFront, goBack, stop, turnRight, turnLeft, patrol
+from mywificar import goFront, goBack, stop, turnRight, turnLeft, patrol, spin
 from myswitch import isSwitchOn
 from myled import ChainableLED
 from flask import Flask, render_template, session, request
@@ -63,7 +63,7 @@ def left_message():
 def back_message():
     session['receive_count'] = session.get('receive_count', 0) + 1
     print("go back")
-    goBack()
+    spin()
     emit('my response',{'data': "go back" , 'count': session['receive_count']})
     
 @socketio.on('right_event', namespace='/test')

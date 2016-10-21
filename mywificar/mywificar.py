@@ -26,54 +26,59 @@ def goFront():
 
 def goBack():
     time.sleep(0.1)
-    motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft)
-    motor.DCMotorMove(MotorRight,CounterClockWise,PwmDutyRight)
+    motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft-10)
+    motor.DCMotorMove(MotorRight,CounterClockWise,PwmDutyRight-10)
     
 
 def turnLeft():
     motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
-    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-5)
+    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-7)
     #motor.DCMotorStop(MotorLeft)
     
 def turnRight():
     #motor.DCMotorStop(MotorRight)
     motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
-    motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft-5)
+    motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft-7)
 
 def stop():
     motor.DCMotorStop(MotorLeft)    
     motor.DCMotorStop(MotorRight)
 
 def spin():
-    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-1)
-    motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft-1)
+    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-10)
+    motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft-10)
 
 def patrol():
-    PwmDutyRight     = 5
-    PwmDutyLeft      = 5
+    PwmDutyRight     = 17
+    PwmDutyLeft      = 17
     while True:
 #detectline() rr=4 rl=3 lr=2 ll=1 none=0
         a=detectLine()
         if a==5:
-            spin()
+            #spin
+            motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-7)
+            motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft-7)
+
         if a==4:
+            
             #turnRight
             motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
-            motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft-2)
+            motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft-5)
         if a==3:
             #turnRight()
             motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
-            motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft-1)
+            motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft-2)
         if a==2:
             #turnLeft()
             motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
-            motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-1)
+            motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-2)
         if a==1:
             #turnLeft()
             motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
-            motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-2)
+            motor.DCMotorMove(MotorRight,CounterClockWise,PwmDutyRight-5)
         if a==0:
-            goFront()
+            motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-3)
+            motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft-3)
 
     
 
