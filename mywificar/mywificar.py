@@ -31,14 +31,12 @@ def goBack():
     
 
 def turnLeft():
-    motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
-    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-7)
-    #motor.DCMotorStop(MotorLeft)
-    
-def turnRight():
-    #motor.DCMotorStop(MotorRight)
-    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
     motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft-7)
+    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
+
+def turnRight():
+    motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-7)
+    motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
 
 def stop():
     motor.DCMotorStop(MotorLeft)    
@@ -60,22 +58,21 @@ def patrol():
             motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft-7)
 
         if a==4:
-            
-            #turnRight
-            motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
-            motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft-5)
+            #turnRight()
+            motor.DCMotorMove(MotorRight,CounterClockWise,PwmDutyRight-5)
+            motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
         if a==3:
             #turnRight()
-            motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
-            motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft-2)
+            motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-2)
+            motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
         if a==2:
             #turnLeft()
-            motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
-            motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-2)
+            motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft-2)
+            motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
         if a==1:
             #turnLeft()
-            motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft)
-            motor.DCMotorMove(MotorRight,CounterClockWise,PwmDutyRight-5)
+            motor.DCMotorMove(MotorLeft,ClockWise,PwmDutyLeft-5)
+            motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight)
         if a==0:
             motor.DCMotorMove(MotorRight,ClockWise,PwmDutyRight-3)
             motor.DCMotorMove(MotorLeft,CounterClockWise,PwmDutyLeft-3)
@@ -97,12 +94,13 @@ if __name__ == '__main__':
         print(i)
         i=i+1
         time.sleep(1)
-    while False:
-        goFront()
-        time.sleep(2)
-        turnLeft()
-        time.sleep(1)
     while True:
+        goFront()
+        time.sleep(1)
+        stop()
+        #turnLeft()
+        time.sleep(1)
+    while False:
         stop()
         time.sleep(100)
 
