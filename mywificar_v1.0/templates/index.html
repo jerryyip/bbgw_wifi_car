@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+	<html>
+	<head>
+	    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>BBGW Wi-Fi CAR</title>
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">  
+        <link rel="stylesheet" href="/static/css/main.css">  
+        <script type="text/javascript" src="/static/js/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+
+	    <script type="text/javascript" src="/static/js/socket.io.min.js"></script>
+	    <script type="text/javascript" charset="utf-8">
+
+	        $(document).ready(function(){
+	            namespace = '/test'; // change to an empty string to use the global namespace
+	
+	            // the socket.io documentation recommends sending an explicit package upon connection
+	            // this is specially important when using the global namespace
+	            var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+	
+	            // event handler for server sent data
+	            socket.on('connect', function() {
+                        socket.emit('my_event', {data: 'I\'m connected!'});
+                });
+                    // the data is displayed in the "Received" section of the page
+	            socket.on('my_response', function(msg) {
+	                $('#log').append('<br>' + $('<div/>').text('Received #' + msg.count + ': ' + msg.data).html());
+	            });
+	
+                $('form#front').submit(function(event) {
+	                socket.emit('front_event');
+	                return false;
+	            });
+                $('form#left').submit(function(event) {
+	                socket.emit('left_event');
+	                return false;
+	            });
+	             $('form#back').submit(function(event) {
+	                socket.emit('back_event');
+	                return false;
+	            });
+	             $('form#right').submit(function(event) {
+	                socket.emit('right_event');
+	                return false;
+	            });
+	             $('form#reset').submit(function(event) {
+	                socket.emit('reset_event');
+	                return false;
+	            });
+            
+	        });
+	    </script>
+	</head>
+<!--	<body style="background-image:url(/static/images/bbgw.jpg)"> -->
+      <body>
+      <h1 class="text-center">BBGW Wi-Fi CAR</h1>
+
+      <br>
+      <form menthod="POST" action="#" id="front" class="text-center">
+         <button type="submit" class="btn btn-success btn-lg">
+             <span class="glyphicon glyphicon-arrow-up"></span>
+         </button>
+      </form>
+      <br>
+      
+      <center>
+      <table class="text-center">
+      <tr>
+      <td>		
+      <form  menthod="POST" action="#" id="left">
+         <button type="submit" class="btn btn-success btn-lg">
+             <span class="glyphicon glyphicon-arrow-left"></span>
+         </button>&nbsp;&nbsp;&nbsp;&nbsp;
+      </form>
+      </td>
+      <td>
+      <form menthod="POST" action="#" id="back">
+         <button type="submit" class="btn btn-success btn-lg">
+             <span class="glyphicon glyphicon-refresh"></span>
+         </button>&nbsp;&nbsp;&nbsp;&nbsp;
+      </form>
+      </td>
+      <td>
+      <form menthod="POST" action="#" id="right">
+         <button type="submit" class="btn btn-success btn-lg" id="">
+              <span class="glyphicon glyphicon-arrow-right"></span>
+         </button>
+      </form>
+      </td>
+      </tr>
+      </table>
+      </center>
+      <br>
+      
+      <form menthod="POST" action="#" id="reset" class="text-center">
+         <button type="submit" class="btn btn-success btn-lg">
+             <span class="glyphicon glyphicon-minus-sign"></span>
+         </button>
+      </form>
+
+      <div>
+      <img src="/static/images/bbgw.jpg" class="img-responsive center-block">
+      </div>
+      </body>
+
+
+
