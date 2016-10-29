@@ -99,7 +99,7 @@ if __name__ == "__main__":
  
     while True:
         # The first parameter: NUMBER_OF_LEDS - 1; Other parameters: the RGB values.
-        rgb_led.setColorRGB(0, 255, 0, 0)
+        rgb_led.setColorRGB(0, 0, 0, 0)
         time.sleep(2)
         rgb_led.setColorRGB(0, 0, 255, 0)
         time.sleep(2)
